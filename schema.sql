@@ -423,13 +423,15 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `profile_picture` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `role_id` int NOT NULL DEFAULT '7',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `phone` (`phone`),
+  KEY `fk_role_id` (`role_id`),
+  CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -438,6 +440,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'John Doe','john@example.com','+1234567890','$2b$10$LSdlgDLv0JuYaPCq1FvZPue/ZmJLLofVpZWGvY70ZGRf/IJMdYs1C','2025-03-13 00:06:33','2025-03-13 00:06:33',7),(3,'Super Admin','super.admin@example.com','+255686169026','$2b$10$VroeeT1imusuVbDxxMaanei4goQZszu7vaH.AThovmgvXlayYg/TC','2025-03-13 00:38:41','2025-03-13 00:38:41',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,4 +471,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-11  1:11:31
+-- Dump completed on 2025-03-13  0:48:06
